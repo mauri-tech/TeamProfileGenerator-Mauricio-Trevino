@@ -18,7 +18,7 @@ After providing the manager's information, you will be presented with a menu tha
 Once you have finished building your team, the application will generate an HTML file and save it to the public directory.
 
 ## Walkthrough Video
-Please click on the following link to watch a walkthrough video that demonstrates the application's functionality and shows all the tests passing: [Video Link](#)
+Please click on the following link to watch a walkthrough video that demonstrates the application's functionality and shows all the tests passing: [Video Link](https://drive.google.com/file/d/12tuG3CugjIQQo6iUalZDRf54XyKgem7X/view)
 
 ## License
 This project is licensed under the MIT License.
