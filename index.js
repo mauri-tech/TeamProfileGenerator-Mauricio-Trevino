@@ -2,9 +2,9 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const htmlGenerator = require('./src/htmlGenerator');
 const teamMembers = [];
-const manager = require('./library/manager');
-const engineer = require('./library/engineer');
-const intern = require('./library/intern');
+const Manager = require('./library/manager');
+const Engineer = require('./library/engineer');
+const Intern = require('./library/intern');
 
 const generateManager = async () => {
   const questions = [
@@ -39,7 +39,7 @@ const generateManager = async () => {
 
   const managerInfo = await inquirer.prompt(questions);
   const { name, id, email, officeNumber } = managerInfo;
-  const newManager = new manager(name, id, email, officeNumber);
+  const newManager = new Manager(name, id, email, officeNumber);
   teamMembers.push(newManager);
   console.log(newManager);
   addEmployee();
@@ -71,17 +71,17 @@ const generateEngineer = async () => {
     {
       type: 'input',
       name: 'github',
-      message: "What is the engineer's GitHub user name?",
+      message: "What is the engineer's GitHub username?",
       validate: (input) =>
-        input !== '' || 'Please enter the engineer GitHub user',
+        input !== '' || 'Please enter the engineer GitHub username',
     },
   ];
 
   const engineerInfo = await inquirer.prompt(questions);
   const { name, id, email, github } = engineerInfo;
-  const newengineer = new engineer(name, id, email, github);
-  teamMembers.push(newengineer);
-  console.log(newengineer);
+  const newEngineer = new Engineer(name, id, email, github);
+  teamMembers.push(newEngineer);
+  console.log(newEngineer);
   addEmployee();
 };
 
@@ -106,51 +106,51 @@ const generateIntern = async () => {
       message: "What is the intern's email address?",
       validate: (input) =>
         input !== '' || 'Please enter the team intern email address',
-    },
-    {
+      },
+      {
       type: 'input',
       name: 'school',
-      message: "What is the intern'school name?",
+      message: "What is the intern's school name?",
       validate: (input) =>
-        input !== '' || 'Please enter the intern school name',
-    },
-  ];
-
-  const internInfo = await inquirer.prompt(questions);
-  const { name, id, email, school } = internInfo;
-  const newintern = new intern(name, id, email, school);
-  teamMembers.push(newintern);
-  console.log(newintern);
-  addEmployee();
-};
-
-generateManager();
-
-async function addEmployee() {
-  const employeeTypes = {
-    manager: generateManager,
-    Engineer: generateEngineer,
-    Intern: generateIntern,
-    None: () =>
-      fs.writeFileSync(
-        './public/teamOverview.html',
-        htmlGenerator(teamMembers)
-      ),
-  };
-
-  const { employeeType } = await inquirer.prompt([
-    {
+      input !== '' || 'Please enter the intern school name',
+      },
+      ];
+      
+      const internInfo = await inquirer.prompt(questions);
+      const { name, id, email, school } = internInfo;
+      const newIntern = new Intern(name, id, email, school);
+      teamMembers.push(newIntern);
+      console.log(newIntern);
+      addEmployee();
+      };
+      
+      generateManager();
+      
+      async function addEmployee() {
+      const employeeTypes = {
+      Manager: generateManager,
+      Engineer: generateEngineer,
+      Intern: generateIntern,
+      None: () => {
+      const generatedHtml = htmlGenerator(teamMembers);
+      fs.writeFileSync('./public/teamOverview.html', generatedHtml);
+      console.log('HTML file generated successfully.');
+      },
+      };
+      
+      const { employeeType } = await inquirer.prompt([
+      {
       type: 'list',
       name: 'employeeType',
       message: 'Do you want to add another team member?',
       choices: Object.keys(employeeTypes),
-    },
-  ]);
-
-  const generateEmployee = employeeTypes[employeeType];
-  if (generateEmployee) {
-    await generateEmployee();
-  } else {
-    console.log('Invalid input');
-  }
-}
+      },
+      ]);
+      
+      const generateEmployee = employeeTypes[employeeType];
+      if (generateEmployee) {
+      await generateEmployee();
+      } else {
+      console.log('Invalid input');
+      }
+      }

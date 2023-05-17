@@ -1,0 +1,26 @@
+{
+  "name": "teamprofilegen-mauricio-trevino",
+  "version": "1.0.0",
+  "description": "## Description The Team Profile Generator is a command-line application built with Node.js...",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mauri-tech/TeamProfileGenerator-Mauricio-Trevino.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mauri-tech/TeamProfileGenerator-Mauricio-Trevino/issues"
+  },
+  "homepage": "https://github.com/mauri-tech/TeamProfileGenerator-Mauricio-Trevino#readme",
+  "dependencies": {
+    "inquirer": "^8.1.0"
+  }
+}
